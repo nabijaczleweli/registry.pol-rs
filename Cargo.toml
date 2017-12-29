@@ -1,0 +1,16 @@
+[package]
+name = "registry-pol"
+description = "Parser for the Windows Registry Policy File format"
+documentation = "https://cdn.rawgit.com/nabijaczleweli/registry.pol-rs/doc/registry-pol/index.html"
+repository = "https://github.com/nabijaczleweli/registry.pol-rs"
+readme = "README.md"
+keywords = ["windows", "parser", "registry"]
+categories = ["parser-implementations"]
+license = "MIT"
+# Remember to also update in appveyor.yml
+version = "0.1.0"
+authors = ["nabijaczleweli <nabijaczleweli@gmail.com>"]
+exclude = ["*.enc"]
+
+
+[dependencies]

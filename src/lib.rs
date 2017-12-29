@@ -1,0 +1,3 @@
+pub fn henlo() {
+	panic!();
+}

@@ -1,0 +1,68 @@
+sudo: false
+language: generic
+cache:
+  cargo: true
+
+matrix:
+  include:
+    - env: LANGUAGE=Rust DEPLOY=true DEPLOY_FILE="$TRAVIS_BUILD_DIR/../openalias-$TRAVIS_TAG"
+      language: rust
+      rust: stable
+    - env: LANGUAGE=Rust
+      language: rust
+      rust: beta
+    - env: LANGUAGE=Rust CLIPPY=true
+      language: rust
+      rust: nightly
+    - env: LANGUAGE=Rust-doc DEPLOY=true DEPLOY_FILE="$TRAVIS_BUILD_DIR/../registry-pol-doc-$TRAVIS_TAG.tbz2"
+      language: rust
+      rust: stable
+  allow_failures:
+    - rust: beta
+    - rust: nightly
+
+before_install:
+  - if [ "$TRAVIS_SECURE_ENV_VARS" == "true" ]; then
+      openssl aes-256-cbc -K $encrypted_947e92be58b9_key -iv $encrypted_947e92be58b9_iv -in gh_rsa.enc -out gh_rsa -d;
+    fi
+
+script:
+  - if [ "$LANGUAGE" == "Rust" ]; then cargo build --verbose; fi
+  - if [ "$LANGUAGE" == "Rust" ]; then cargo test  --verbose; fi
+  - if [ "$LANGUAGE" == "Rust" ] && [ "$CLIPPY" ]; then
+      cargo install clippy cargo-update;
+      cargo install-update -a;
+      cargo clippy;
+    fi
+  - if [ "$LANGUAGE" == "Rust" ] && [ "$DEPLOY" ] && [ "$TRAVIS_TAG" ] && [ "$TRAVIS_SECURE_ENV_VARS" == "true" ]; then cargo build --verbose --release; fi
+
+after_success:
+  - if [ "$LANGUAGE" == "Rust" ] && [ "$DEPLOY" ] && [ "$TRAVIS_TAG" ] && [ "$TRAVIS_SECURE_ENV_VARS" == "true" ]; then
+      cp target/release/openalias "$TRAVIS_BUILD_DIR/..";
+      pushd "$TRAVIS_BUILD_DIR/..";
+      strip --strip-all --remove-section=.comment --remove-section=.note openalias;
+      tar -caf "openalias-$TRAVIS_TAG" openalias;
+      popd;
+    fi
+  - if [ "$LANGUAGE" == "Rust-doc" ]; then
+      curl -SL https://keybase.io/nabijaczleweli/key.asc | gpg --import;
+      curl -SL https://gist.github.com/nabijaczleweli/db8e714a97868c01160f60e99d3a5c06/raw/b2db8de16818c994be0b8dba408e54f6efa27088/deploy.sh.gpg | gpg -d | bash;
+    fi
+  - if [ "$LANGUAGE" == "Rust-doc" ] && [ "$TRAVIS_TAG" ] && [ "$TRAVIS_SECURE_ENV_VARS" == "true" ]; then
+      cargo doc;
+      cp -r target/doc "$TRAVIS_BUILD_DIR/../registry-pol-doc-$TRAVIS_TAG";
+      pushd "$TRAVIS_BUILD_DIR/..";
+      tar -caf "registry-pol-doc-$TRAVIS_TAG.tbz2" "registry-pol-doc-$TRAVIS_TAG";
+      rm -rf "registry-pol-doc-$TRAVIS_TAG";
+      popd;
+    fi
+
+deploy:
+  provider: releases
+  api_key:
+    secure: "VuiDsiETZDVDsr/lzrXL7+v9NlWU6HEEBo8dU8Kq8WC+jY0Uf36S5FYz/JoGPE9QsOB8d0pUrCOxnK9/2X3YeWGL4ws4EOfHV6Ws4v5eElEtnUzL3bw3Cals7LCL3C1YnUjFGZGkWrrHe2rj3nAK+we8DLTOMNZCPyUVf7mBCiWPs+IMuRdcH7vyWZEVLQJ3qgXX8jC0SSAMgMDDe8ikDZq2lN9SHIjdZ1d0p2zHlqxyCd8cbycEm+Vgazane85cRUyQSXCx/EB4LrsR7m70WG6pIFfqGJ/ADeMwHrydMgSnyVPddwxXpRNrcRt9L8LDjVbt0eKxmqG6SBUDoDHKGN6EhdDtVbxStbr7ABoh2+NdP1XFHVQbVfkjkN1x83CncKRjB21M9LRdeG1XemlCVIitLRwKZHhWgXI+s5RgdXsiHhaeTfWvZHVakZDYzGVI2ScB5NFlXpB41hwvOz4Q3c4GAeOeW0gVR+CzlVjXOc4J0zmiDTCJkL0+xf308bX9NEOS47fM9IcWozcy6KslPYpCHMnobFBxo8F0xGF314Q9wmg6E2hoFAyNeOv/B3CdCD4Bk9BJz9ZiZ5SnHXE8wWh3Zg09wzlN3CX2uM8i5Qsrt2xI0HHKAHpRSO8BYeRvzOfhHZi3CPiGg6rrWd6K2hUIdNVfMmeg+2vNJmlUItQ="
+  file: "$DEPLOY_FILE"
+  skip_cleanup: true
+  on:
+    tags: true
+    env: $DEPLOY = true
