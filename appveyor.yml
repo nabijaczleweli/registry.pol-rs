@@ -20,6 +20,7 @@ build: off
 build_script:
   - git submodule update --init --recursive
   - cargo build --release
+  - cargo test --release
 
 test: off
 
