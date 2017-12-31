@@ -14,3 +14,5 @@ exclude = ["*.enc"]
 
 
 [dependencies]
+lazy_static = "1.0"
+nom = "3.2"
