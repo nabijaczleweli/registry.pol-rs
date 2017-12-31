@@ -1,9 +1,15 @@
 use registry_pol::v1::{RegistryValueType, RegistryValue, parse};
 
 
+static EMPTY_DATA: &[u8] = include_bytes!("../../test-data/Empty.pol");
 static MACHINE_REGISTRY_DATA: &[u8] = include_bytes!("../../test-data/Machine-Registry.pol");
 static USER_REGISTRY_DATA: &[u8] = include_bytes!("../../test-data/User-Registry.pol");
 
+
+#[test]
+fn empty() {
+    assert_eq!(parse(EMPTY_DATA), Ok(vec![]));
+}
 
 #[test]
 fn machine() {

@@ -80,7 +80,7 @@ named!(value<RegistryValue>, do_parse!(
 named!(pub parse<Vec<RegistryValue>>,
   do_parse!(
     header >>
-    values: many1!(delimited!(tag!(UTF16_LE_OPEN_SQUARE_BRACKET), value, tag!(UTF16_LE_CLOSE_SQUARE_BRACKET))) >>
+    values: many0!(delimited!(tag!(UTF16_LE_OPEN_SQUARE_BRACKET), value, tag!(UTF16_LE_CLOSE_SQUARE_BRACKET))) >>
     (values)
   )
 );
