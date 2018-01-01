@@ -32,3 +32,12 @@ fn user() {
                            data: Some(vec![0x20, 0x00, 0x00, 0x00]),
                        }]));
 }
+
+quickcheck! {
+    fn random(xs: Vec<u8>) -> bool {
+        // Not requiring is_err() because that's gonna give lots of false negatives
+        // (first trivial non-error case is at 8 bytes, next at 24, at 26 there are 65`534, etc.)
+        let _ = parse(&xs);
+        true
+    }
+}
