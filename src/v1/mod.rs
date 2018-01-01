@@ -46,11 +46,22 @@ impl RegistryValueType {
     }
 
     pub fn REG_QWORD_LITTLE_ENDIAN() -> RegistryValueType {
+        // Not sure if that's always that but my WinNT.h says so :v
         RegistryValueType::REG_QWORD
     }
 }
 
 impl RegistryValueType {
+    /// Get a `RegistryValueType` from an integer representation, or `None`.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use registry_pol::v1::RegistryValueType;
+    /// assert_eq!(RegistryValueType::parse(RegistryValueType::REG_DWORD as u32),
+    ///            Some(RegistryValueType::REG_DWORD));
+    /// assert_eq!(RegistryValueType::parse(420), None);
+    /// ```
     pub fn parse(tp: u32) -> Option<RegistryValueType> {
         match tp {
             0 => Some(RegistryValueType::REG_NONE),
