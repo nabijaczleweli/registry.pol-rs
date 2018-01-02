@@ -31,8 +31,8 @@ fn reg_dword() {
 
 #[test]
 fn reg_dword_alt() {
-    assert_eq!(RegistryValueType::parse(RegistryValueType::REG_DWORD_ALT as u32),
-               Some(RegistryValueType::REG_DWORD_ALT));
+    assert_eq!(RegistryValueType::parse(RegistryValueType::REG_DWORD_BIG_ENDIAN as u32),
+               Some(RegistryValueType::REG_DWORD_BIG_ENDIAN));
 }
 
 #[test]

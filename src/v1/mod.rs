@@ -20,8 +20,7 @@ pub enum RegistryValueType {
     REG_EXPAND_SZ = 2,
     REG_BINARY = 3,
     REG_DWORD = 4,
-    /// The non-native byte ordering for a `u32`.
-    REG_DWORD_ALT = 5,
+    REG_DWORD_BIG_ENDIAN = 5,
     REG_LINK = 6,
     REG_MULTI_SZ = 7,
     REG_QWORD = 11,
@@ -29,20 +28,9 @@ pub enum RegistryValueType {
 
 #[allow(non_snake_case)]
 impl RegistryValueType {
+    /// Same as `REG_DWORD`
     pub fn REG_DWORD_LITTLE_ENDIAN() -> RegistryValueType {
-        if cfg!(target_endian = "little") {
-            RegistryValueType::REG_DWORD
-        } else {
-            RegistryValueType::REG_DWORD_ALT
-        }
-    }
-
-    pub fn REG_DWORD_BIG_ENDIAN() -> RegistryValueType {
-        if cfg!(target_endian = "little") {
-            RegistryValueType::REG_DWORD_ALT
-        } else {
-            RegistryValueType::REG_DWORD
-        }
+        RegistryValueType::REG_DWORD
     }
 
     pub fn REG_QWORD_LITTLE_ENDIAN() -> RegistryValueType {
@@ -69,7 +57,7 @@ impl RegistryValueType {
             2 => Some(RegistryValueType::REG_EXPAND_SZ),
             3 => Some(RegistryValueType::REG_BINARY),
             4 => Some(RegistryValueType::REG_DWORD),
-            5 => Some(RegistryValueType::REG_DWORD_ALT),
+            5 => Some(RegistryValueType::REG_DWORD_BIG_ENDIAN),
             6 => Some(RegistryValueType::REG_LINK),
             7 => Some(RegistryValueType::REG_MULTI_SZ),
             11 => Some(RegistryValueType::REG_QWORD),
