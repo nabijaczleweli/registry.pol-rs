@@ -26,20 +26,12 @@ pub enum RegistryValueType {
     REG_QWORD = 11,
 }
 
-#[allow(non_snake_case)]
 impl RegistryValueType {
-    /// Same as `REG_DWORD`
-    pub fn REG_DWORD_LITTLE_ENDIAN() -> RegistryValueType {
-        RegistryValueType::REG_DWORD
-    }
+    /// Same as `REG_DWORD`.
+    pub const REG_DWORD_LITTLE_ENDIAN: RegistryValueType = RegistryValueType::REG_DWORD;
+    pub const REG_QWORD_LITTLE_ENDIAN: RegistryValueType = RegistryValueType::REG_QWORD;
 
-    pub fn REG_QWORD_LITTLE_ENDIAN() -> RegistryValueType {
-        // Not sure if that's always that but my WinNT.h says so :v
-        RegistryValueType::REG_QWORD
-    }
-}
 
-impl RegistryValueType {
     /// Get a `RegistryValueType` from an integer representation, or `None`.
     ///
     /// # Examples
