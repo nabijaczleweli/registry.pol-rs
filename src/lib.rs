@@ -2,6 +2,8 @@
 //! under the `<drive>:\Windows\System32\GroupPolicy\` folder. One file contains computer settings and the other file contains
 //! user settings. The Group Policy Object Editor saves the settings to these files on exit, and imports the settings on
 //! startup.
+//!
+//! This library does not and will never depend on any Windows-specific libraries and will therefore work on any system.
 
 
 #[macro_use]
