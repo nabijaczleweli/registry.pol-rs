@@ -8,7 +8,7 @@ keywords = ["windows", "parser", "registry"]
 categories = ["parser-implementations"]
 license = "MIT"
 # Remember to also update in appveyor.yml
-version = "0.1.0"
+version = "1.0.0"
 authors = ["nabijaczleweli <nabijaczleweli@gmail.com>"]
 exclude = ["*.enc"]
 

@@ -5,7 +5,7 @@ cache:
 
 matrix:
   include:
-    - env: LANGUAGE=Rust DEPLOY=true DEPLOY_FILE="$TRAVIS_BUILD_DIR/../openalias-$TRAVIS_TAG"
+    - env: LANGUAGE=Rust
       language: rust
       rust: stable
     - env: LANGUAGE=Rust
@@ -34,16 +34,8 @@ script:
       cargo install-update -a;
       cargo clippy;
     fi
-  - if [ "$LANGUAGE" == "Rust" ] && [ "$DEPLOY" ] && [ "$TRAVIS_TAG" ] && [ "$TRAVIS_SECURE_ENV_VARS" == "true" ]; then cargo build --verbose --release; fi
 
 after_success:
-  - if [ "$LANGUAGE" == "Rust" ] && [ "$DEPLOY" ] && [ "$TRAVIS_TAG" ] && [ "$TRAVIS_SECURE_ENV_VARS" == "true" ]; then
-      cp target/release/openalias "$TRAVIS_BUILD_DIR/..";
-      pushd "$TRAVIS_BUILD_DIR/..";
-      strip --strip-all --remove-section=.comment --remove-section=.note openalias;
-      tar -caf "openalias-$TRAVIS_TAG" openalias;
-      popd;
-    fi
   - if [ "$LANGUAGE" == "Rust-doc" ]; then
       curl -SL https://keybase.io/nabijaczleweli/key.asc | gpg --import;
       curl -SL https://gist.github.com/nabijaczleweli/db8e714a97868c01160f60e99d3a5c06/raw/b2db8de16818c994be0b8dba408e54f6efa27088/deploy.sh.gpg | gpg -d | bash;
@@ -65,4 +57,4 @@ deploy:
   skip_cleanup: true
   on:
     tags: true
-    env: $DEPLOY = true
+    condition: $DEPLOY = true
