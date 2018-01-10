@@ -59,15 +59,19 @@
 <span id="14">14</span>
 <span id="15">15</span>
 <span id="16">16</span>
+<span id="17">17</span>
+<span id="18">18</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! The Group Policy Object Editor stores registry-based configuration settings in two Registry.pol files, stored in folders</span>
 <span class="doccomment">//! under the `&lt;drive&gt;:\Windows\System32\GroupPolicy\` folder. One file contains computer settings and the other file contains</span>
 <span class="doccomment">//! user settings. The Group Policy Object Editor saves the settings to these files on exit, and imports the settings on</span>
 <span class="doccomment">//! startup.</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! A `Registry.pol` file is a text file that consists of a header and a body.</span>
-<span class="doccomment">//! The header contains two DWORD values that indicate the file signature and version. These values are defined as follows.</span>
 
+
+<span class="attribute">#[<span class="ident">macro_use</span>]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">nom</span>;
+<span class="attribute">#[<span class="ident">macro_use</span>]</span>
+<span class="kw">extern</span> <span class="kw">crate</span> <span class="ident">lazy_static</span>;
 
 <span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v1</span>;
 
