@@ -212,7 +212,7 @@
 <span class="macro">named</span><span class="macro">!</span>(<span class="kw">pub</span> <span class="ident">parse</span><span class="op">&lt;</span><span class="ident">Vec</span><span class="op">&lt;</span><span class="ident">RegistryValue</span><span class="op">&gt;&gt;</span>,
   <span class="macro">do_parse</span><span class="macro">!</span>(
     <span class="ident">header</span> <span class="op">&gt;&gt;</span>
-    <span class="ident">values</span>: <span class="macro">many1</span><span class="macro">!</span>(<span class="macro">delimited</span><span class="macro">!</span>(<span class="macro">tag</span><span class="macro">!</span>(<span class="ident">UTF16_LE_OPEN_SQUARE_BRACKET</span>), <span class="ident">value</span>, <span class="macro">tag</span><span class="macro">!</span>(<span class="ident">UTF16_LE_CLOSE_SQUARE_BRACKET</span>))) <span class="op">&gt;&gt;</span>
+    <span class="ident">values</span>: <span class="macro">many0</span><span class="macro">!</span>(<span class="macro">delimited</span><span class="macro">!</span>(<span class="macro">tag</span><span class="macro">!</span>(<span class="ident">UTF16_LE_OPEN_SQUARE_BRACKET</span>), <span class="ident">value</span>, <span class="macro">tag</span><span class="macro">!</span>(<span class="ident">UTF16_LE_CLOSE_SQUARE_BRACKET</span>))) <span class="op">&gt;&gt;</span>
     (<span class="ident">values</span>)
   )
 );
