@@ -1,0 +1,1 @@
+initSidebarItems({"constant":[["REGISTRY_FILE_VERSION","Second part of header."]],"enum":[["RegistryValueType","The data type field can contain any of the registry value types defined in WinNT.h."]],"struct":[["RegistryValue","A representation of registry value version 1."]]});

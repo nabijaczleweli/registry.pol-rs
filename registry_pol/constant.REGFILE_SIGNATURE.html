@@ -4,20 +4,20 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `src/lib.rs`.">
-    <meta name="keywords" content="rust, rustlang, rust-lang">
+    <meta name="description" content="API documentation for the Rust `REGFILE_SIGNATURE` constant in crate `registry_pol`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, REGFILE_SIGNATURE">
 
-    <title>lib.rs.html -- source</title>
+    <title>registry_pol::REGFILE_SIGNATURE - Rust</title>
 
-    <link rel="stylesheet" type="text/css" href="../../normalize.css">
-    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
-    <link rel="stylesheet" type="text/css" href="../../main.css">
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
     
 
     
     
 </head>
-<body class="rustdoc source">
+<body class="rustdoc constant">
     <!--[if lte IE 8]>
     <div class="warning">
         This old browser is unsupported and will most likely display funky
@@ -29,7 +29,7 @@
 
     <nav class="sidebar">
         
-        
+        <p class='location'><a href='index.html'>registry_pol</a></p><script>window.sidebarCurrent = {name: 'REGFILE_SIGNATURE', ty: 'constant', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
     <nav class="sub">
@@ -43,41 +43,14 @@
         </form>
     </nav>
 
-    <section id='main' class="content"><pre class="line-numbers"><span id="1"> 1</span>
-<span id="2"> 2</span>
-<span id="3"> 3</span>
-<span id="4"> 4</span>
-<span id="5"> 5</span>
-<span id="6"> 6</span>
-<span id="7"> 7</span>
-<span id="8"> 8</span>
-<span id="9"> 9</span>
-<span id="10">10</span>
-<span id="11">11</span>
-<span id="12">12</span>
-<span id="13">13</span>
-<span id="14">14</span>
-<span id="15">15</span>
-<span id="16">16</span>
-</pre><pre class="rust ">
-<span class="doccomment">//! The Group Policy Object Editor stores registry-based configuration settings in two Registry.pol files, stored in folders</span>
-<span class="doccomment">//! under the `&lt;drive&gt;:\Windows\System32\GroupPolicy\` folder. One file contains computer settings and the other file contains</span>
-<span class="doccomment">//! user settings. The Group Policy Object Editor saves the settings to these files on exit, and imports the settings on</span>
-<span class="doccomment">//! startup.</span>
-<span class="doccomment">//!</span>
-<span class="doccomment">//! A `Registry.pol` file is a text file that consists of a header and a body.</span>
-<span class="doccomment">//! The header contains two DWORD values that indicate the file signature and version. These values are defined as follows.</span>
-
-
-<span class="kw">pub</span> <span class="kw">mod</span> <span class="ident">v1</span>;
-
-<span class="kw">pub</span> <span class="kw">use</span> <span class="self">self</span>::<span class="ident">v1</span>::<span class="kw-2">*</span>;
-
-
-<span class="doccomment">/// First part of header, equivalent to &quot;PReg&quot; in little-endian.</span>
-<span class="kw">pub</span> <span class="kw">const</span> <span class="ident">REGFILE_SIGNATURE</span>: <span class="ident">u32</span> <span class="op">=</span> <span class="number">0x67655250</span>;
-</pre>
-</section>
+    <section id='main' class="content">
+<h1 class='fqn'><span class='in-band'>Constant <a href='index.html'>registry_pol</a>::<wbr><a class="constant" href=''>REGFILE_SIGNATURE</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/registry_pol/lib.rs.html#16' title='goto source code'>[src]</a></span></h1>
+<pre class='rust const'>pub const REGFILE_SIGNATURE: <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.u32.html">u32</a><code> = </code><code>1734693456</code></pre><div class='docblock'><p>First part of header, equivalent to &quot;PReg&quot; in little-endian.</p>
+</div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -133,10 +106,10 @@
     
 
     <script>
-        window.rootPath = "../../";
+        window.rootPath = "../";
         window.currentCrate = "registry_pol";
     </script>
-    <script src="../../main.js"></script>
-    <script defer src="../../search-index.js"></script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
 </body>
 </html>

@@ -1,1 +1,1 @@
-initSidebarItems({"fn":[["henlo",""]]});
+initSidebarItems({"constant":[["REGFILE_SIGNATURE","First part of header, equivalent to \"PReg\" in little-endian."]],"mod":[["v1","Registry Policy File format version 1."]]});
