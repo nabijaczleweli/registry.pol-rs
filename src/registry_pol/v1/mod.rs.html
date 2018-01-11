@@ -150,6 +150,17 @@
 <span id="105">105</span>
 <span id="106">106</span>
 <span id="107">107</span>
+<span id="108">108</span>
+<span id="109">109</span>
+<span id="110">110</span>
+<span id="111">111</span>
+<span id="112">112</span>
+<span id="113">113</span>
+<span id="114">114</span>
+<span id="115">115</span>
+<span id="116">116</span>
+<span id="117">117</span>
+<span id="118">118</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! Registry Policy File format version 1.</span>
 
@@ -199,11 +210,22 @@
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">REG_QWORD_LITTLE_ENDIAN</span>() <span class="op">-&gt;</span> <span class="ident">RegistryValueType</span> {
+        <span class="comment">// Not sure if that&#39;s always that but my WinNT.h says so :v</span>
         <span class="ident">RegistryValueType</span>::<span class="ident">REG_QWORD</span>
     }
 }
 
 <span class="kw">impl</span> <span class="ident">RegistryValueType</span> {
+    <span class="doccomment">/// Get a `RegistryValueType` from an integer representation, or `None`.</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// # Examples</span>
+    <span class="doccomment">///</span>
+    <span class="doccomment">/// ```</span>
+    <span class="doccomment">/// # use registry_pol::v1::RegistryValueType;</span>
+    <span class="doccomment">/// assert_eq!(RegistryValueType::parse(RegistryValueType::REG_DWORD as u32),</span>
+    <span class="doccomment">///            Some(RegistryValueType::REG_DWORD));</span>
+    <span class="doccomment">/// assert_eq!(RegistryValueType::parse(420), None);</span>
+    <span class="doccomment">/// ```</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">parse</span>(<span class="ident">tp</span>: <span class="ident">u32</span>) <span class="op">-&gt;</span> <span class="prelude-ty">Option</span><span class="op">&lt;</span><span class="ident">RegistryValueType</span><span class="op">&gt;</span> {
         <span class="kw">match</span> <span class="ident">tp</span> {
             <span class="number">0</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RegistryValueType</span>::<span class="ident">REG_NONE</span>),
