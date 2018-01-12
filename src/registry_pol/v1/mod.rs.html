@@ -149,18 +149,6 @@
 <span id="104">104</span>
 <span id="105">105</span>
 <span id="106">106</span>
-<span id="107">107</span>
-<span id="108">108</span>
-<span id="109">109</span>
-<span id="110">110</span>
-<span id="111">111</span>
-<span id="112">112</span>
-<span id="113">113</span>
-<span id="114">114</span>
-<span id="115">115</span>
-<span id="116">116</span>
-<span id="117">117</span>
-<span id="118">118</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! Registry Policy File format version 1.</span>
 
@@ -184,8 +172,7 @@
     <span class="ident">REG_EXPAND_SZ</span> <span class="op">=</span> <span class="number">2</span>,
     <span class="ident">REG_BINARY</span> <span class="op">=</span> <span class="number">3</span>,
     <span class="ident">REG_DWORD</span> <span class="op">=</span> <span class="number">4</span>,
-    <span class="doccomment">/// The non-native byte ordering for a `u32`.</span>
-    <span class="ident">REG_DWORD_ALT</span> <span class="op">=</span> <span class="number">5</span>,
+    <span class="ident">REG_DWORD_BIG_ENDIAN</span> <span class="op">=</span> <span class="number">5</span>,
     <span class="ident">REG_LINK</span> <span class="op">=</span> <span class="number">6</span>,
     <span class="ident">REG_MULTI_SZ</span> <span class="op">=</span> <span class="number">7</span>,
     <span class="ident">REG_QWORD</span> <span class="op">=</span> <span class="number">11</span>,
@@ -193,20 +180,9 @@
 
 <span class="attribute">#[<span class="ident">allow</span>(<span class="ident">non_snake_case</span>)]</span>
 <span class="kw">impl</span> <span class="ident">RegistryValueType</span> {
+    <span class="doccomment">/// Same as `REG_DWORD`</span>
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">REG_DWORD_LITTLE_ENDIAN</span>() <span class="op">-&gt;</span> <span class="ident">RegistryValueType</span> {
-        <span class="kw">if</span> <span class="macro">cfg</span><span class="macro">!</span>(<span class="ident">target_endian</span> <span class="op">=</span> <span class="string">&quot;little&quot;</span>) {
-            <span class="ident">RegistryValueType</span>::<span class="ident">REG_DWORD</span>
-        } <span class="kw">else</span> {
-            <span class="ident">RegistryValueType</span>::<span class="ident">REG_DWORD_ALT</span>
-        }
-    }
-
-    <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">REG_DWORD_BIG_ENDIAN</span>() <span class="op">-&gt;</span> <span class="ident">RegistryValueType</span> {
-        <span class="kw">if</span> <span class="macro">cfg</span><span class="macro">!</span>(<span class="ident">target_endian</span> <span class="op">=</span> <span class="string">&quot;little&quot;</span>) {
-            <span class="ident">RegistryValueType</span>::<span class="ident">REG_DWORD_ALT</span>
-        } <span class="kw">else</span> {
-            <span class="ident">RegistryValueType</span>::<span class="ident">REG_DWORD</span>
-        }
+        <span class="ident">RegistryValueType</span>::<span class="ident">REG_DWORD</span>
     }
 
     <span class="kw">pub</span> <span class="kw">fn</span> <span class="ident">REG_QWORD_LITTLE_ENDIAN</span>() <span class="op">-&gt;</span> <span class="ident">RegistryValueType</span> {
@@ -233,7 +209,7 @@
             <span class="number">2</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RegistryValueType</span>::<span class="ident">REG_EXPAND_SZ</span>),
             <span class="number">3</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RegistryValueType</span>::<span class="ident">REG_BINARY</span>),
             <span class="number">4</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RegistryValueType</span>::<span class="ident">REG_DWORD</span>),
-            <span class="number">5</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RegistryValueType</span>::<span class="ident">REG_DWORD_ALT</span>),
+            <span class="number">5</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RegistryValueType</span>::<span class="ident">REG_DWORD_BIG_ENDIAN</span>),
             <span class="number">6</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RegistryValueType</span>::<span class="ident">REG_LINK</span>),
             <span class="number">7</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RegistryValueType</span>::<span class="ident">REG_MULTI_SZ</span>),
             <span class="number">11</span> <span class="op">=&gt;</span> <span class="prelude-val">Some</span>(<span class="ident">RegistryValueType</span>::<span class="ident">REG_QWORD</span>),
