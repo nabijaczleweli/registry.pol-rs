@@ -48,11 +48,13 @@
                    <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
                        [<span class='inner'>&#x2212;</span>]
                    </a>
-               </span><a class='srclink' href='../src/registry_pol/lib.rs.html#1-18' title='goto source code'>[src]</a></span></h1>
+               </span><a class='srclink' href='../src/registry_pol/lib.rs.html#1-20' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>The Group Policy Object Editor stores registry-based configuration settings in two Registry.pol files, stored in folders
 under the <code>&lt;drive&gt;:\Windows\System32\GroupPolicy\</code> folder. One file contains computer settings and the other file contains
 user settings. The Group Policy Object Editor saves the settings to these files on exit, and imports the settings on
 startup.</p>
+
+<p>This library does not and will never depend on any Windows-specific libraries and will therefore work on any system.</p>
 </div><h2 id='reexports' class='section-header'><a href="#reexports">Reexports</a></h2>
 <table><tr><td><code>pub use self::<a class="mod" href="../registry_pol/v1/index.html" title="mod registry_pol::v1">v1</a>::*;</code></td></tr></table><h2 id='modules' class='section-header'><a href="#modules">Modules</a></h2>
 <table>

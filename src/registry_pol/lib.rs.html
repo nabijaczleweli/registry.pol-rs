@@ -61,11 +61,15 @@
 <span id="16">16</span>
 <span id="17">17</span>
 <span id="18">18</span>
+<span id="19">19</span>
+<span id="20">20</span>
 </pre><pre class="rust ">
 <span class="doccomment">//! The Group Policy Object Editor stores registry-based configuration settings in two Registry.pol files, stored in folders</span>
 <span class="doccomment">//! under the `&lt;drive&gt;:\Windows\System32\GroupPolicy\` folder. One file contains computer settings and the other file contains</span>
 <span class="doccomment">//! user settings. The Group Policy Object Editor saves the settings to these files on exit, and imports the settings on</span>
 <span class="doccomment">//! startup.</span>
+<span class="doccomment">//!</span>
+<span class="doccomment">//! This library does not and will never depend on any Windows-specific libraries and will therefore work on any system.</span>
 
 
 <span class="attribute">#[<span class="ident">macro_use</span>]</span>
