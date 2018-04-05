@@ -10,8 +10,11 @@
     <title>nom::whitespace - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../../normalize.css">
-    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
-    <link rel="stylesheet" type="text/css" href="../../main.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css" id="mainThemeStyle">
+    
+    <link rel="stylesheet" type="text/css" href="../../dark.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css" id="themeStyle">
+    <script src="../../storage.js"></script>
     
 
     
@@ -28,10 +31,18 @@
     
 
     <nav class="sidebar">
+        <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Module whitespace</p><div class="block items"><ul><li><a href="#functions">Functions</a></li></ul></div><p class='location'><a href='../index.html'>nom</a></p><script>window.sidebarCurrent = {name: 'whitespace', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script>
+        <p class='location'>Module whitespace</p><div class="sidebar-elems"><div class="block items"><ul><li><a href="#functions">Functions</a></li></ul></div><p class='location'><a href='../index.html'>nom</a></p><script>window.sidebarCurrent = {name: 'whitespace', ty: 'mod', relpath: '../'};</script><script defer src="../sidebar-items.js"></script></div>
     </nav>
 
+    <div class="theme-picker">
+        <button id="theme-picker" aria-label="Pick another theme!">
+            <img src="../../brush.svg" width="18" alt="Pick another theme!">
+        </button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../../theme.js"></script>
     <nav class="sub">
         <form class="search-form js-only">
             <div class="search-container">
@@ -50,7 +61,6 @@
                    </a>
                </span><a class='srclink' href='../../src/nom/whitespace.rs.html#1-1056' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>Support for whitespace delimited formats</p>
-
 <p>a lot of textual formats allows spaces and other
 types of separators between tokens. Handling it
 manually with nom means wrapping all parsers
@@ -58,7 +68,6 @@ like this:</p>
 
 <div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><pre class="rust rust-example-rendered ignore">
 <span class="macro">named</span><span class="macro">!</span>(<span class="ident">token</span>, <span class="macro">delimited</span><span class="macro">!</span>(<span class="ident">space</span>, <span class="ident">tk</span>, <span class="ident">space</span>));</pre>
-
 <p>To ease the development of such parsers, you
 can use the whitespace parsing facility, which works
 as follows:</p>
@@ -72,14 +81,12 @@ as follows:</p>
   <span class="ident">tuple</span>(<span class="kw-2">&amp;</span><span class="string">b&quot; \t abc de fg&quot;</span>[..]),
   <span class="ident">Done</span>(<span class="kw-2">&amp;</span><span class="string">b&quot;fg&quot;</span>[..], (<span class="kw-2">&amp;</span><span class="string">b&quot;abc&quot;</span>[..], <span class="kw-2">&amp;</span><span class="string">b&quot;de&quot;</span>[..]))
 );</pre>
-
 <p>The <code>ws!</code> combinator will modify the parser to
 intersperse space parsers everywhere. By default,
 it will consume the following characters: &quot; \t\r\n&quot;.</p>
-
 <p>If you want to modify that behaviour, you can make
 your own whitespace wrapper. As an example, if
-you don&#39;t want to consume ends of lines, only
+you don't want to consume ends of lines, only
 spaces and tabs, you can do it like this:</p>
 
 <pre class="rust rust-example-rendered">
@@ -102,20 +109,21 @@ spaces and tabs, you can do it like this:</p>
   <span class="ident">tuple</span>(<span class="kw-2">&amp;</span><span class="string">b&quot; \t abc de fg&quot;</span>[..]),
   <span class="ident">Done</span>(<span class="kw-2">&amp;</span><span class="string">b&quot;fg&quot;</span>[..], (<span class="kw-2">&amp;</span><span class="string">b&quot;abc&quot;</span>[..], <span class="kw-2">&amp;</span><span class="string">b&quot;de&quot;</span>[..]))
 );</pre>
-
 <p>This combinator works by replacing each combinator with
 a version that supports wrapping with separator parsers.
 It will not support the combinators you wrote in your
 own code. You can still manually wrap them with the separator
 you want, or you can copy the macros defined in src/whitespace.rs
-and modify them to support a new combinator:
-* copy the combinator&#39;s code here, add the _sep suffix
-* add the <code>$separator:expr</code> as second argument
-* wrap any sub parsers with sep!($separator, $submac!($($args)*))
-* reference it in the definition of <code>sep!</code> as follows:</p>
+and modify them to support a new combinator:</p>
+<ul>
+<li>copy the combinator's code here, add the _sep suffix</li>
+<li>add the <code>$separator:expr</code> as second argument</li>
+<li>wrap any sub parsers with sep!($separator, $submac!($($args)*))</li>
+<li>reference it in the definition of <code>sep!</code> as follows:</li>
+</ul>
 
 <div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><pre class="rust rust-example-rendered ignore">
-(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">i</span>:<span class="ident">expr</span>,  <span class="macro-nonterminal">$</span><span class="macro-nonterminal">separator</span>:<span class="ident">ident</span>, <span class="ident">my_combinator</span> <span class="op">!</span> ($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">rest</span>:<span class="ident">tt</span>)<span class="kw-2">*</span>) ) <span class="op">=&gt;</span> {
+ (<span class="macro-nonterminal">$</span><span class="macro-nonterminal">i</span>:<span class="ident">expr</span>,  <span class="macro-nonterminal">$</span><span class="macro-nonterminal">separator</span>:<span class="ident">ident</span>, <span class="ident">my_combinator</span> <span class="op">!</span> ($(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">rest</span>:<span class="ident">tt</span>)<span class="kw-2">*</span>) ) <span class="op">=&gt;</span> {
    <span class="macro">wrap_sep</span><span class="macro">!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">i</span>,
      <span class="macro-nonterminal">$</span><span class="macro-nonterminal">separator</span>,
      <span class="macro">my_combinator_sep</span><span class="macro">!</span>(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">separator</span>, $(<span class="macro-nonterminal">$</span><span class="macro-nonterminal">rest</span>)<span class="kw-2">*</span>)
@@ -142,20 +150,22 @@ and modify them to support a new combinator:
                 <h2>Keyboard Shortcuts</h2>
 
                 <dl>
-                    <dt>?</dt>
+                    <dt><kbd>?</kbd></dt>
                     <dd>Show this help dialog</dd>
-                    <dt>S</dt>
+                    <dt><kbd>S</kbd></dt>
                     <dd>Focus the search field</dd>
-                    <dt>↑</dt>
+                    <dt><kbd>↑</kbd></dt>
                     <dd>Move up in search results</dd>
-                    <dt>↓</dt>
+                    <dt><kbd>↓</kbd></dt>
                     <dd>Move down in search results</dd>
-                    <dt>↹</dt>
+                    <dt><kbd>↹</kbd></dt>
                     <dd>Switch tab</dd>
-                    <dt>&#9166;</dt>
+                    <dt><kbd>&#9166;</kbd></dt>
                     <dd>Go to active search result</dd>
-                    <dt style="width:31px;">+ / -</dt>
-                    <dd>Collapse/expand all sections</dd>
+                    <dt><kbd>+</kbd></dt>
+                    <dd>Expand all sections</dd>
+                    <dt><kbd>-</kbd></dt>
+                    <dd>Collapse all sections</dd>
                 </dl>
             </div>
 

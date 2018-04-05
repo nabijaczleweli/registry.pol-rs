@@ -10,8 +10,11 @@
     <title>nom::alt - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../normalize.css">
-    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
-    <link rel="stylesheet" type="text/css" href="../main.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
+    
+    <link rel="stylesheet" type="text/css" href="../dark.css">
+    <link rel="stylesheet" type="text/css" href="../main.css" id="themeStyle">
+    <script src="../storage.js"></script>
     
 
     
@@ -28,10 +31,18 @@
     
 
     <nav class="sidebar">
+        <div class="sidebar-menu">&#9776;</div>
         
         <p class='location'><a href='index.html'>nom</a></p><script>window.sidebarCurrent = {name: 'alt', ty: 'macro', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
+    <div class="theme-picker">
+        <button id="theme-picker" aria-label="Pick another theme!">
+            <img src="../brush.svg" width="18" alt="Pick another theme!">
+        </button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../theme.js"></script>
     <nav class="sub">
         <form class="search-form js-only">
             <div class="search-container">
@@ -64,19 +75,15 @@
 
 <div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><pre class="rust rust-example-rendered ignore">
 <span class="macro">alt</span><span class="macro">!</span>(<span class="ident">I</span> <span class="op">-&gt;</span> <span class="ident">IResult</span><span class="op">&lt;</span><span class="ident">I</span>,<span class="ident">O</span><span class="op">&gt;</span> <span class="op">|</span> <span class="ident">I</span> <span class="op">-&gt;</span> <span class="ident">IResult</span><span class="op">&lt;</span><span class="ident">I</span>,<span class="ident">O</span><span class="op">&gt;</span> <span class="op">|</span> ... <span class="op">|</span> <span class="ident">I</span> <span class="op">-&gt;</span> <span class="ident">IResult</span><span class="op">&lt;</span><span class="ident">I</span>,<span class="ident">O</span><span class="op">&gt;</span> ) <span class="op">=&gt;</span> <span class="ident">I</span> <span class="op">-&gt;</span> <span class="ident">IResult</span><span class="op">&lt;</span><span class="ident">I</span>, <span class="ident">O</span><span class="op">&gt;</span></pre>
-
 <p>All the parsers must have the same return type.</p>
-
 <p>If one of the parsers returns <code>Incomplete</code>, <code>alt!</code> will return <code>Incomplete</code>, to retry
 once you get more input. Note that it is better for performance to know the
 minimum size of data you need before you get into <code>alt!</code>.</p>
-
 <p>The <code>alt!</code> combinator is used in the following way:</p>
 
 <div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><pre class="rust rust-example-rendered ignore">
 <span class="macro">alt</span><span class="macro">!</span>(<span class="ident">parser_1</span> <span class="op">|</span> <span class="ident">parser_2</span> <span class="op">|</span> ... <span class="op">|</span> <span class="ident">parser_n</span>)</pre>
-
-<h1 id='basic-example' class='section-header'><a href='#basic-example'>Basic example</a></h1>
+<h1 id="basic-example" class="section-header"><a href="#basic-example">Basic example</a></h1>
 <pre class="rust rust-example-rendered">
  <span class="comment">// Create a parser that will match either &quot;dragon&quot; or &quot;beast&quot;</span>
  <span class="macro">named</span><span class="macro">!</span>( <span class="ident">dragon_or_beast</span>, <span class="macro">alt</span><span class="macro">!</span>( <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;dragon&quot;</span> ) <span class="op">|</span> <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;beast&quot;</span> ) ) );
@@ -92,8 +99,7 @@ minimum size of data you need before you get into <code>alt!</code>.</p>
  <span class="kw">let</span> (<span class="ident">rest</span>, <span class="ident">result</span>) <span class="op">=</span> <span class="ident">dragon_or_beast</span>(<span class="kw-2">&amp;</span><span class="string">b&quot;beast of Gevaudan&quot;</span>[..]).<span class="ident">unwrap</span>();
  <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">result</span>, <span class="string">b&quot;beast&quot;</span>);
  <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">rest</span>, <span class="string">b&quot; of Gevaudan&quot;</span>);</pre>
-
-<h1 id='manipulate-results' class='section-header'><a href='#manipulate-results'>Manipulate results</a></h1>
+<h1 id="manipulate-results" class="section-header"><a href="#manipulate-results">Manipulate results</a></h1>
 <p>There exists another syntax for <code>alt!</code> that gives you the ability to
 manipulate the result from each parser:</p>
 
@@ -139,36 +145,30 @@ manipulate the result from each parser:</p>
 <span class="kw">let</span> (<span class="ident">rest</span>, <span class="ident">result</span>) <span class="op">=</span> <span class="ident">creature</span>(<span class="string">b&quot;demon hunter&quot;</span>).<span class="ident">unwrap</span>();
 <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">result</span>, <span class="ident">Creature</span>::<span class="ident">Unknown</span>(<span class="number">5</span>));
 <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">rest</span>, <span class="string">b&quot; hunter&quot;</span>);</pre>
-
-<h1 id='behaviour-of-alt' class='section-header'><a href='#behaviour-of-alt'>Behaviour of <code>alt!</code></a></h1>
+<h1 id="behaviour-of-alt" class="section-header"><a href="#behaviour-of-alt">Behaviour of <code>alt!</code></a></h1>
 <p><strong>BE CAREFUL</strong> there is a case where the behaviour of <code>alt!</code> can be confusing:</p>
-
 <p>when the alternatives have different lengths, like this case:</p>
 
 <div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><pre class="rust rust-example-rendered ignore">
-<span class="macro">named</span><span class="macro">!</span>( <span class="ident">test</span>, <span class="macro">alt</span><span class="macro">!</span>( <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;abcd&quot;</span> ) <span class="op">|</span> <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;ef&quot;</span> ) <span class="op">|</span> <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;ghi&quot;</span> ) <span class="op">|</span> <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;kl&quot;</span> ) ) );</pre>
-
+ <span class="macro">named</span><span class="macro">!</span>( <span class="ident">test</span>, <span class="macro">alt</span><span class="macro">!</span>( <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;abcd&quot;</span> ) <span class="op">|</span> <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;ef&quot;</span> ) <span class="op">|</span> <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;ghi&quot;</span> ) <span class="op">|</span> <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;kl&quot;</span> ) ) );</pre>
 <p>With this parser, if you pass <code>&quot;abcd&quot;</code> as input, the first alternative parses it correctly,
 but if you pass <code>&quot;efg&quot;</code>, the first alternative will return <code>Incomplete</code>, since it needs an input
-of 4 bytes. This behaviour of <code>alt!</code> is expected: if you get a partial input that isn&#39;t matched
+of 4 bytes. This behaviour of <code>alt!</code> is expected: if you get a partial input that isn't matched
 by the first alternative, but would match if the input was complete, you want <code>alt!</code> to indicate
 that it cannot decide with limited information.</p>
-
 <p>There are two ways to fix this behaviour. The first one consists in ordering the alternatives
 by size, like this:</p>
 
 <div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><pre class="rust rust-example-rendered ignore">
-<span class="macro">named</span><span class="macro">!</span>( <span class="ident">test</span>, <span class="macro">alt</span><span class="macro">!</span>( <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;ef&quot;</span> ) <span class="op">|</span> <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;kl&quot;</span>) <span class="op">|</span> <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;ghi&quot;</span> ) <span class="op">|</span> <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;abcd&quot;</span> ) ) );</pre>
-
+ <span class="macro">named</span><span class="macro">!</span>( <span class="ident">test</span>, <span class="macro">alt</span><span class="macro">!</span>( <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;ef&quot;</span> ) <span class="op">|</span> <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;kl&quot;</span>) <span class="op">|</span> <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;ghi&quot;</span> ) <span class="op">|</span> <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;abcd&quot;</span> ) ) );</pre>
 <p>With this solution, the largest alternative will be tested last.</p>
-
 <p>The other solution uses the <code>complete!</code> combinator, which transforms an <code>Incomplete</code> in an
 <code>Error</code>. If one of the alternatives returns <code>Incomplete</code> but is wrapped by <code>complete!</code>,
 <code>alt!</code> will try the next alternative. This is useful when you know that
 you will not get partial input:</p>
 
 <div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><pre class="rust rust-example-rendered ignore">
-<span class="macro">named</span><span class="macro">!</span>( <span class="ident">test</span>,
+ <span class="macro">named</span><span class="macro">!</span>( <span class="ident">test</span>,
    <span class="macro">alt</span><span class="macro">!</span>(
      <span class="macro">complete</span><span class="macro">!</span>( <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;abcd&quot;</span> ) ) <span class="op">|</span>
      <span class="macro">complete</span><span class="macro">!</span>( <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;ef&quot;</span>   ) ) <span class="op">|</span>
@@ -176,23 +176,19 @@ you will not get partial input:</p>
      <span class="macro">complete</span><span class="macro">!</span>( <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;kl&quot;</span>   ) )
    )
  );</pre>
-
 <p>If you want the <code>complete!</code> combinator to be applied to all rules then use the convenience
 <code>alt_complete!</code> macro (see below).</p>
-
 <p>This behaviour of <code>alt!</code> can get especially confusing if multiple alternatives have different
 sizes but a common prefix, like this:</p>
 
 <div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><pre class="rust rust-example-rendered ignore">
-<span class="macro">named</span><span class="macro">!</span>( <span class="ident">test</span>, <span class="macro">alt</span><span class="macro">!</span>( <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;abcd&quot;</span> ) <span class="op">|</span> <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;ab&quot;</span> ) <span class="op">|</span> <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;ef&quot;</span> ) ) );</pre>
-
+ <span class="macro">named</span><span class="macro">!</span>( <span class="ident">test</span>, <span class="macro">alt</span><span class="macro">!</span>( <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;abcd&quot;</span> ) <span class="op">|</span> <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;ab&quot;</span> ) <span class="op">|</span> <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;ef&quot;</span> ) ) );</pre>
 <p>in that case, if you order by size, passing <code>&quot;abcd&quot;</code> as input will always be matched by the
 smallest parser, so the solution using <code>complete!</code> is better suited.</p>
-
 <p>You can also nest multiple <code>alt!</code>, like this:</p>
 
 <div class='information'><div class='tooltip ignore'>ⓘ<span class='tooltiptext'>This example is not tested</span></div></div><pre class="rust rust-example-rendered ignore">
-<span class="macro">named</span><span class="macro">!</span>( <span class="ident">test</span>,
+ <span class="macro">named</span><span class="macro">!</span>( <span class="ident">test</span>,
    <span class="macro">alt</span><span class="macro">!</span>(
      <span class="macro">preceded</span><span class="macro">!</span>(
        <span class="macro">tag</span><span class="macro">!</span>(<span class="string">&quot;ab&quot;</span>),
@@ -204,10 +200,9 @@ smallest parser, so the solution using <code>complete!</code> is better suited.<
    <span class="op">|</span> <span class="macro">tag</span><span class="macro">!</span>( <span class="string">&quot;ef&quot;</span> )
    )
  );</pre>
-
 <p><code>preceded!</code> will first parse <code>&quot;ab&quot;</code> then, if successful, try the alternatives &quot;cd&quot;,
- or empty input (End Of File). If none of them work, <code>preceded!</code> will fail and
- &quot;ef&quot; will be tested.</p>
+or empty input (End Of File). If none of them work, <code>preceded!</code> will fail and
+&quot;ef&quot; will be tested.</p>
 </div></section>
     <section id='search' class="content hidden"></section>
 
@@ -221,20 +216,22 @@ smallest parser, so the solution using <code>complete!</code> is better suited.<
                 <h2>Keyboard Shortcuts</h2>
 
                 <dl>
-                    <dt>?</dt>
+                    <dt><kbd>?</kbd></dt>
                     <dd>Show this help dialog</dd>
-                    <dt>S</dt>
+                    <dt><kbd>S</kbd></dt>
                     <dd>Focus the search field</dd>
-                    <dt>↑</dt>
+                    <dt><kbd>↑</kbd></dt>
                     <dd>Move up in search results</dd>
-                    <dt>↓</dt>
+                    <dt><kbd>↓</kbd></dt>
                     <dd>Move down in search results</dd>
-                    <dt>↹</dt>
+                    <dt><kbd>↹</kbd></dt>
                     <dd>Switch tab</dd>
-                    <dt>&#9166;</dt>
+                    <dt><kbd>&#9166;</kbd></dt>
                     <dd>Go to active search result</dd>
-                    <dt style="width:31px;">+ / -</dt>
-                    <dd>Collapse/expand all sections</dd>
+                    <dt><kbd>+</kbd></dt>
+                    <dd>Expand all sections</dd>
+                    <dt><kbd>-</kbd></dt>
+                    <dd>Collapse all sections</dd>
                 </dl>
             </div>
 

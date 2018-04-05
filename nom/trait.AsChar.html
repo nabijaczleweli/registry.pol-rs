@@ -10,8 +10,11 @@
     <title>nom::AsChar - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../normalize.css">
-    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
-    <link rel="stylesheet" type="text/css" href="../main.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
+    
+    <link rel="stylesheet" type="text/css" href="../dark.css">
+    <link rel="stylesheet" type="text/css" href="../main.css" id="themeStyle">
+    <script src="../storage.js"></script>
     
 
     
@@ -28,10 +31,18 @@
     
 
     <nav class="sidebar">
+        <div class="sidebar-menu">&#9776;</div>
         
-        <p class='location'>Trait AsChar</p><div class="block items"><a class="sidebar-title" href="#required-methods">Required Methods</a><div class="sidebar-links"><a href="#tymethod.as_char">as_char</a><a href="#tymethod.is_alpha">is_alpha</a><a href="#tymethod.is_alphanum">is_alphanum</a><a href="#tymethod.is_dec_digit">is_dec_digit</a><a href="#tymethod.is_hex_digit">is_hex_digit</a><a href="#tymethod.is_oct_digit">is_oct_digit</a><a href="#tymethod.len">len</a></div><a class="sidebar-title" href="#foreign-impls">Implementations on Foreign Types</a><div class="sidebar-links"><a href="#impl-AsChar">u8</a><a href="#impl-AsChar">&amp;&#39;a u8</a><a href="#impl-AsChar">char</a><a href="#impl-AsChar">&amp;&#39;a char</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class='location'><a href='index.html'>nom</a></p><script>window.sidebarCurrent = {name: 'AsChar', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+        <p class='location'>Trait AsChar</p><div class="sidebar-elems"><div class="block items"><a class="sidebar-title" href="#required-methods">Required Methods</a><div class="sidebar-links"><a href="#tymethod.as_char">as_char</a><a href="#tymethod.is_alpha">is_alpha</a><a href="#tymethod.is_alphanum">is_alphanum</a><a href="#tymethod.is_dec_digit">is_dec_digit</a><a href="#tymethod.is_hex_digit">is_hex_digit</a><a href="#tymethod.is_oct_digit">is_oct_digit</a><a href="#tymethod.len">len</a></div><a class="sidebar-title" href="#foreign-impls">Implementations on Foreign Types</a><div class="sidebar-links"><a href="#impl-AsChar">u8</a><a href="#impl-AsChar">&amp;&#39;a u8</a><a href="#impl-AsChar">char</a><a href="#impl-AsChar">&amp;&#39;a char</a></div><a class="sidebar-title" href="#implementors">Implementors</a></div><p class='location'><a href='index.html'>nom</a></p><script>window.sidebarCurrent = {name: 'AsChar', ty: 'trait', relpath: ''};</script><script defer src="sidebar-items.js"></script></div>
     </nav>
 
+    <div class="theme-picker">
+        <button id="theme-picker" aria-label="Pick another theme!">
+            <img src="../brush.svg" width="18" alt="Pick another theme!">
+        </button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../theme.js"></script>
     <nav class="sub">
         <form class="search-form js-only">
             <div class="search-container">
@@ -65,7 +76,6 @@
             <div class='methods'>
         <h3 id='tymethod.as_char' class='method'><span id='as_char.v' class='invisible'><code>fn <a href='#tymethod.as_char' class='fnname'>as_char</a>(self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.char.html">char</a></code></span></h3><div class='docblock'><p>makes a char from self</p>
 </div><h3 id='tymethod.is_alpha' class='method'><span id='is_alpha.v' class='invisible'><code>fn <a href='#tymethod.is_alpha' class='fnname'>is_alpha</a>(self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span></h3><div class='docblock'><p>tests that self is an alphabetic character</p>
-
 <p>warning: for <code>&amp;str</code> it recognizes alphabetic
 characters outside of the 52 ASCII letters</p>
 </div><h3 id='tymethod.is_alphanum' class='method'><span id='is_alphanum.v' class='invisible'><code>fn <a href='#tymethod.is_alphanum' class='fnname'>is_alphanum</a>(self) -&gt; <a class="primitive" href="https://doc.rust-lang.org/nightly/std/primitive.bool.html">bool</a></code></span></h3><div class='docblock'><p>tests that self is an alphabetic character
@@ -130,20 +140,22 @@ or a decimal digit</p>
                 <h2>Keyboard Shortcuts</h2>
 
                 <dl>
-                    <dt>?</dt>
+                    <dt><kbd>?</kbd></dt>
                     <dd>Show this help dialog</dd>
-                    <dt>S</dt>
+                    <dt><kbd>S</kbd></dt>
                     <dd>Focus the search field</dd>
-                    <dt>↑</dt>
+                    <dt><kbd>↑</kbd></dt>
                     <dd>Move up in search results</dd>
-                    <dt>↓</dt>
+                    <dt><kbd>↓</kbd></dt>
                     <dd>Move down in search results</dd>
-                    <dt>↹</dt>
+                    <dt><kbd>↹</kbd></dt>
                     <dd>Switch tab</dd>
-                    <dt>&#9166;</dt>
+                    <dt><kbd>&#9166;</kbd></dt>
                     <dd>Go to active search result</dd>
-                    <dt style="width:31px;">+ / -</dt>
-                    <dd>Collapse/expand all sections</dd>
+                    <dt><kbd>+</kbd></dt>
+                    <dd>Expand all sections</dd>
+                    <dt><kbd>-</kbd></dt>
+                    <dd>Collapse all sections</dd>
                 </dl>
             </div>
 

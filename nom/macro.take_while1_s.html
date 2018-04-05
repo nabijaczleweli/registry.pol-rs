@@ -10,8 +10,11 @@
     <title>nom::take_while1_s - Rust</title>
 
     <link rel="stylesheet" type="text/css" href="../normalize.css">
-    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
-    <link rel="stylesheet" type="text/css" href="../main.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css" id="mainThemeStyle">
+    
+    <link rel="stylesheet" type="text/css" href="../dark.css">
+    <link rel="stylesheet" type="text/css" href="../main.css" id="themeStyle">
+    <script src="../storage.js"></script>
     
 
     
@@ -28,10 +31,18 @@
     
 
     <nav class="sidebar">
+        <div class="sidebar-menu">&#9776;</div>
         
         <p class='location'><a href='index.html'>nom</a></p><script>window.sidebarCurrent = {name: 'take_while1_s', ty: 'macro', relpath: ''};</script><script defer src="sidebar-items.js"></script>
     </nav>
 
+    <div class="theme-picker">
+        <button id="theme-picker" aria-label="Pick another theme!">
+            <img src="../brush.svg" width="18" alt="Pick another theme!">
+        </button>
+        <div id="theme-choices"></div>
+    </div>
+    <script src="../theme.js"></script>
     <nav class="sub">
         <form class="search-form js-only">
             <div class="search-container">
@@ -56,21 +67,15 @@
 }</pre>
 <div class='docblock'><p><code>take_while1_s!(char -&gt; bool) =&gt; &amp;str -&gt; IResult&lt;&amp;str, &amp;str&gt;</code>
 returns the longest (non empty) list of characters until the provided function fails.</p>
+<p>The argument is either a function <code>char -&gt; bool</code> or a macro returning a <code>bool</code></p>
 
-<p>The argument is either a function <code>char -&gt; bool</code> or a macro returning a <code>bool</code>
-```</p>
+<pre class="rust rust-example-rendered">
+ <span class="kw">fn</span> <span class="ident">alphabetic</span>(<span class="ident">chr</span>: <span class="ident">char</span>) <span class="op">-&gt;</span> <span class="ident">bool</span> { (<span class="ident">chr</span> <span class="op">&gt;=</span> <span class="number">0x41</span> <span class="kw">as</span> <span class="ident">char</span> <span class="op">&amp;&amp;</span> <span class="ident">chr</span> <span class="op">&lt;=</span> <span class="number">0x5A</span> <span class="kw">as</span> <span class="ident">char</span>) <span class="op">||</span> (<span class="ident">chr</span> <span class="op">&gt;=</span> <span class="number">0x61</span> <span class="kw">as</span> <span class="ident">char</span> <span class="op">&amp;&amp;</span> <span class="ident">chr</span> <span class="op">&lt;=</span> <span class="number">0x7A</span> <span class="kw">as</span> <span class="ident">char</span>) }
+ <span class="macro">named</span><span class="macro">!</span>( <span class="ident">alpha</span><span class="op">&lt;</span><span class="kw-2">&amp;</span><span class="ident">str</span>,<span class="kw-2">&amp;</span><span class="ident">str</span><span class="op">&gt;</span>, <span class="macro">take_while1_s</span><span class="macro">!</span>( <span class="ident">alphabetic</span> ) );
 
-<h1 id='macro_use-extern-crate-nom' class='section-header'><a href='#macro_use-extern-crate-nom'>#[macro_use] extern crate nom;</a></h1>
-<h1 id='use-nomiresultdone' class='section-header'><a href='#use-nomiresultdone'>use nom::IResult::Done;</a></h1>
-<h1 id='use-nomis_alphanumeric' class='section-header'><a href='#use-nomis_alphanumeric'>use nom::is_alphanumeric;</a></h1>
-<h1 id='fn-main-' class='section-header'><a href='#fn-main-'>fn main() {</a></h1>
-<p>fn alphabetic(chr: char) -&gt; bool { (chr &gt;= 0x41 as char &amp;&amp; chr &lt;= 0x5A as char) || (chr &gt;= 0x61 as char &amp;&amp; chr &lt;= 0x7A as char) }
- named!( alpha&lt;&amp;str,&amp;str&gt;, take_while1_s!( alphabetic ) );</p>
-
-<p>let r = alpha(&quot;abcd\nefgh&quot;);
- assert_eq!(r, Done(&quot;\nefgh&quot;, &quot;abcd&quot;));</p>
-
-<h1 id='' class='section-header'><a href='#'>}</a></h1></div></section>
+ <span class="kw">let</span> <span class="ident">r</span> <span class="op">=</span> <span class="ident">alpha</span>(<span class="string">&quot;abcd\nefgh&quot;</span>);
+ <span class="macro">assert_eq</span><span class="macro">!</span>(<span class="ident">r</span>, <span class="ident">Done</span>(<span class="string">&quot;\nefgh&quot;</span>, <span class="string">&quot;abcd&quot;</span>));</pre>
+</div></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -83,20 +88,22 @@ returns the longest (non empty) list of characters until the provided function f
                 <h2>Keyboard Shortcuts</h2>
 
                 <dl>
-                    <dt>?</dt>
+                    <dt><kbd>?</kbd></dt>
                     <dd>Show this help dialog</dd>
-                    <dt>S</dt>
+                    <dt><kbd>S</kbd></dt>
                     <dd>Focus the search field</dd>
-                    <dt>↑</dt>
+                    <dt><kbd>↑</kbd></dt>
                     <dd>Move up in search results</dd>
-                    <dt>↓</dt>
+                    <dt><kbd>↓</kbd></dt>
                     <dd>Move down in search results</dd>
-                    <dt>↹</dt>
+                    <dt><kbd>↹</kbd></dt>
                     <dd>Switch tab</dd>
-                    <dt>&#9166;</dt>
+                    <dt><kbd>&#9166;</kbd></dt>
                     <dd>Go to active search result</dd>
-                    <dt style="width:31px;">+ / -</dt>
-                    <dd>Collapse/expand all sections</dd>
+                    <dt><kbd>+</kbd></dt>
+                    <dd>Expand all sections</dd>
+                    <dt><kbd>-</kbd></dt>
+                    <dd>Collapse all sections</dd>
                 </dl>
             </div>
 
