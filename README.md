@@ -2,4 +2,4 @@
 Parser for the [Windows Registry Policy File format](https://msdn.microsoft.com/en-us/library/aa374407%28v=vs.85%29.aspx)
 	without dependencies on any Windows-specicfic libraries.
 
-## [Documentation](https://cdn.rawgit.com/nabijaczleweli/registry.pol-rs/doc/registry_pol/index.html)
+## [Documentation](https://rawcdn.githack.com/nabijaczleweli/registry.pol-rs/doc/registry_pol/index.html)
